@@ -1,0 +1,30 @@
+version: "3.0"
+services:
+  app:
+    build: .
+    ports:
+      - 80:3000
+      - 8080:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./hook:/usr/local/nginx/hook
+      - ./conf/init.rb:/usr/local/nginx/conf/init.rb
+      - ./conf/nginx.conf.erb:/usr/local/nginx/conf/nginx.conf.erb
+  dummy:
+    image: nginx:alpine
+
+  ruby:
+    image: ruby:alpine
+    command: |
+      sh -c "
+      ruby <<'EOF'
+        require 'webrick'
+
+        server = WEBrick::HTTPServer.new(:BindAddress => '0.0.0.0', :Port => 3000)
+        server.mount_proc('/') do |req, res|
+          res.body = 'Hello World'
+          res.status = 200
+        end
+        server.start
+      EOF
+      "

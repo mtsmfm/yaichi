@@ -1,0 +1,40 @@
+daemon off;
+user root;
+error_log /dev/stdout info;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    mruby_init /usr/local/nginx/conf/init.rb;
+    access_log /dev/stdout;
+
+    server {
+<%- Docker::Container.me.exposed_ports.map(&:last).each do |port| -%>
+        listen *:<%= port %>;
+<%- end -%>
+
+        server_name localhost;
+
+        location / {
+            mruby_content_handler /usr/local/nginx/hook/index.rb;
+        }
+    }
+
+     server {
+<%- Docker::Container.me.exposed_ports.map(&:last).each do |port| -%>
+        listen *:<%= port %>;
+<%- end -%>
+
+        server_name *.localhost;
+
+        location / {
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+
+            mruby_set $backend /usr/local/nginx/hook/proxy.rb;
+            proxy_pass   http://$backend;
+        }
+    }
+}
