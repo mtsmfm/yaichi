@@ -25,7 +25,7 @@ Nginx.echo <<-HTML
     #{
       containers.flat_map do |c|
         me.exposed_ports.select {|_, local| c.listening?(me, local) }.map do |remote, local|
-          "<li><a href='#{c.uri(remote)}'>#{c.name} (#{remote}:#{local})</a></li>"
+          "<li><a href='#{c.uri(remote)}' target='_blank'>#{c.name} (#{remote}:#{local})</a></li>"
         end
       end.join("\n")
     }
