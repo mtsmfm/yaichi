@@ -8,8 +8,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./hook:/usr/local/nginx/hook
-      - ./conf/init.rb:/usr/local/nginx/conf/init.rb
-      - ./conf/nginx.conf.erb:/usr/local/nginx/conf/nginx.conf.erb
+      - ./conf:/usr/local/nginx/conf
   dummy:
     image: nginx:alpine
 

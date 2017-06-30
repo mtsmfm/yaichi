@@ -1,25 +1,27 @@
 FROM alpine:3.6
 
-ENV NGINX_MRUBY_VERSION 1.19.4
+ENV NGINX_MRUBY_VERSION a0450a03b06bdcbc311a1306c5e13291bc0bc6da
 ENV NGINX_CONFIG_OPT_ENV --with-http_stub_status_module --with-http_ssl_module --prefix=/usr/local/nginx --with-http_realip_module --with-http_addition_module --with-http_sub_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_random_index_module --with-http_secure_link_module
 
 ENV DOCKER_CHANNEL stable
 ENV DOCKER_VERSION 17.03.1-ce
 
 COPY build_config.rb /tmp/build_config.rb
+COPY mrbgem /tmp/mrbgem
 
 RUN apk add --no-cache --virtual .build-deps wget ruby-rake git gcc make tar bison \
 	&& apk add --no-cache --virtual .linked-deps openssl-dev pcre-dev libc-dev \
 	\
 	&& mkdir -p /usr/local/src \
 	&& cd /usr/local/src \
-	&& wget https://github.com/matsumotory/ngx_mruby/archive/v$NGINX_MRUBY_VERSION.tar.gz \
-	&& tar -xvf v$NGINX_MRUBY_VERSION.tar.gz \
-	&& rm v$NGINX_MRUBY_VERSION.tar.gz \
-	&& mv ngx_mruby-$NGINX_MRUBY_VERSION ngx_mruby \
+	&& wget https://github.com/matsumotory/ngx_mruby/archive/$NGINX_MRUBY_VERSION.tar.gz -O ngx_mruby.tar.gz \
+	&& mkdir ngx_mruby \
+	&& tar --extract --file ngx_mruby.tar.gz --strip-components 1 --directory ngx_mruby \
+	&& rm ngx_mruby.tar.gz \
 	\
 	&& cd /usr/local/src/ngx_mruby \
 	&& mv /tmp/build_config.rb . \
+	&& mv /tmp/mrbgem . \
 	&& sh build.sh \
 	&& make install \
 	&& rm -rf /usr/local/src \
@@ -29,12 +31,11 @@ RUN apk add --no-cache --virtual .build-deps wget ruby-rake git gcc make tar bis
 	&& tar --extract --file docker.tgz --strip-components 1 --directory /usr/bin/ \
 	&& rm docker.tgz \
 	\
-	&& apk del .build-deps \
-	&& apk add --no-cache --virtual .runtime-deps ruby ruby-json
+	&& apk del .build-deps
 
 WORKDIR /usr/local/nginx
 
 COPY hook /usr/local/nginx/hook
 COPY conf /usr/local/nginx/conf
 
-CMD  cat conf/nginx.conf.erb | ruby -r erb -r json -r /usr/local/nginx/conf/init.rb -e 'ERB.new($<.read, nil, ?-).run' > conf/nginx.conf && /usr/local/nginx/sbin/nginx
+CMD /usr/local/nginx/sbin/nginx

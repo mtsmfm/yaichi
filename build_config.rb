@@ -9,6 +9,8 @@ MRuby::Build.new('host') do |conf|
     cc.flags << ENV['NGX_MRUBY_CFLAGS'] if ENV['NGX_MRUBY_CFLAGS']
   end
 
+  conf.gem 'mrbgem'
+
   #
   # Recommended for ngx_mruby
   #
