@@ -31,5 +31,6 @@ COPY --from=build-env /usr/local/nginx/sbin/nginx /usr/bin/nginx
 COPY --from=build-env /usr/bin/docker /usr/bin/docker
 COPY hook /usr/local/nginx/hook
 COPY conf /usr/local/nginx/conf
+COPY data /usr/local/nginx/data
 
 CMD ["/usr/bin/nginx"]
