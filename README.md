@@ -20,3 +20,10 @@ Yaichi is a reverse proxy for developers using Docker on development environment
 3. Access yaichi-test via browser
 
   Yaichi allows you to access \<container-name\>.localhost so you can access `yaichi-test-1` container via http://yaichi-test-1.localhost
+
+## Development
+
+        $ git clone https://github.com/mtsmfm/yaichi
+        $ cd yaichi
+        $ docker-compose up
+        $ open http://localhost:80
