@@ -13,8 +13,8 @@ if not_connected_networks.any?
   Docker::Container.expire_cache!
   me = Docker::Container.me
   containers = Docker::Container.all - [me]
-  containers.sort_by! { |c| c.name }
 end
+containers.sort_by! { |c| c.name }
 
 Nginx.echo <<-HTML
 <html>
