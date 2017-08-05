@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker/compose:1.15.0
+    working_directory: /yaichi
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 17.06.0-ce
+      - run: |
+          rm docker-compose.override.yml
+          bin/test

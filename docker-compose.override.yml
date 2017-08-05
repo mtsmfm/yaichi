@@ -1,0 +1,7 @@
+version: "3.0"
+services:
+  app:
+    volumes:
+      - ./hook:/usr/local/nginx/hook
+      - ./conf:/usr/local/nginx/conf
+      - ./data:/usr/local/nginx/data

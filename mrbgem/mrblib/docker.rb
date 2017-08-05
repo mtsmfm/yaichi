@@ -36,11 +36,11 @@ module Docker
       end
 
       def my_id
-        @my_id ||= `cat /proc/self/cgroup`.scan(%r{cpu:/docker/(.*)})[0][0]
+        @my_id ||= `hostname`.chomp
       end
 
       def me
-        all.find {|c| c.id == my_id }
+        all.find {|c| c.id.start_with?(my_id) }
       end
 
       def find_by_fqdn(fqdn)
