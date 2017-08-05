@@ -1,9 +1,9 @@
 FROM alpine:3.6 AS build-env
 
-ENV NGINX_MRUBY_VERSION a0450a03b06bdcbc311a1306c5e13291bc0bc6da
+ENV NGINX_MRUBY_VERSION v1.20.0
 ENV NGINX_CONFIG_OPT_ENV '--with-ld-opt="-static" --prefix=/usr/local/nginx --with-http_stub_status_module --with-stream --without-stream_access_module'
 ENV DOCKER_CHANNEL stable
-ENV DOCKER_VERSION 17.03.1-ce
+ENV DOCKER_VERSION 17.03.2-ce
 
 RUN apk add --no-cache wget ruby-rake git gcc make tar bison openssl-dev pcre-dev libc-dev
 RUN mkdir -p /usr/local/src
