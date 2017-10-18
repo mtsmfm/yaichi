@@ -2,7 +2,7 @@ r = Nginx::Request.new
 r.content_type = "text/html"
 
 Docker::Container.expire_cache!
-me = Docker::Container.me
+me = Docker::Container.me!
 containers = Docker::Container.all - [me]
 
 not_connected_networks = (containers.flat_map(&:networks) - me.networks)
@@ -11,7 +11,7 @@ not_connected_networks.each do |n|
 end
 if not_connected_networks.any?
   Docker::Container.expire_cache!
-  me = Docker::Container.me
+  me = Docker::Container.me!
   containers = Docker::Container.all - [me]
 end
 containers = containers.sort_by(&:name)
