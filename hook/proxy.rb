@@ -1,6 +1,6 @@
 r = Nginx::Request.new
 c = Nginx::Connection.new
-me = Docker::Container.me
+me = Docker::Container.me!
 
 if container = Docker::Container.find_by_fqdn(r.hostname)
   not_connected_networks = (container.networks - me.networks)
@@ -9,7 +9,7 @@ if container = Docker::Container.find_by_fqdn(r.hostname)
   end
   if not_connected_networks.any?
     Docker::Container.expire_cache!
-    me = Docker::Container.me
+    me = Docker::Container.me!
     container = Docker::Container.find_by_fqdn(r.hostname)
   end
 
