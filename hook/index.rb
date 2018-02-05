@@ -14,7 +14,7 @@ if not_connected_networks.any?
   me = Docker::Container.me!
   containers = Docker::Container.all - [me]
 end
-containers = containers.sort_by(&:name)
+containers = containers.select {|c| c.reachable_from?(me) }.sort_by(&:name)
 
 Nginx.echo <<-HTML
 <html>
