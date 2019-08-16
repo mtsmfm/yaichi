@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.3.0
+
+- Fix docker container inspect error
+- Update nginx mruby version
+
 ## 1.2.0
 
 - Consider non reachable container
