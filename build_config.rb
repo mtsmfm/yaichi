@@ -14,27 +14,27 @@ MRuby::Build.new('host') do |conf|
   #
   # Recommended for ngx_mruby
   #
-  conf.gem :github => 'iij/mruby-io'
-  conf.gem :github => 'iij/mruby-env'
-  conf.gem :github => 'iij/mruby-dir'
-  conf.gem :github => 'iij/mruby-digest'
-  conf.gem :github => 'iij/mruby-process'
-  conf.gem :github => 'iij/mruby-pack'
-  conf.gem :github => 'iij/mruby-socket'
+  # conf.gem :github => 'iij/mruby-io'
+  # conf.gem :github => 'iij/mruby-env'
+  # conf.gem :github => 'iij/mruby-dir'
+  # conf.gem :github => 'iij/mruby-digest'
+  # conf.gem :github => 'iij/mruby-process'
+  # conf.gem :github => 'iij/mruby-pack'
+  # conf.gem :github => 'iij/mruby-socket'
   conf.gem :github => 'mattn/mruby-json'
   conf.gem :github => 'mattn/mruby-onig-regexp'
-  conf.gem :github => 'matsumotory/mruby-redis'
-  conf.gem :github => 'matsumotory/mruby-vedis'
+  # conf.gem :github => 'matsumotory/mruby-redis'
+  # conf.gem :github => 'matsumotory/mruby-vedis'
   conf.gem :github => 'matsumotory/mruby-sleep'
-  conf.gem :github => 'matsumotory/mruby-userdata'
-  conf.gem :github => 'matsumotory/mruby-uname'
-  conf.gem :github => 'matsumotory/mruby-mutex'
-  conf.gem :github => 'matsumotory/mruby-localmemcache'
-  conf.gem :mgem => 'mruby-secure-random'
+  # conf.gem :github => 'matsumotory/mruby-userdata'
+  # conf.gem :github => 'matsumotory/mruby-uname'
+  # conf.gem :github => 'matsumotory/mruby-mutex'
+  # conf.gem :github => 'matsumotory/mruby-localmemcache'
+  # conf.gem :mgem => 'mruby-secure-random'
 
   # ngx_mruby extended class
   conf.gem './mrbgems/ngx_mruby_mrblib'
-  conf.gem './mrbgems/rack-based-api'
+  # conf.gem './mrbgems/rack-based-api'
 
   # use memcached
   # conf.gem :github => 'matsumotory/mruby-memcached'
