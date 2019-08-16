@@ -30,6 +30,7 @@ module Docker
       def all
         @all ||= begin
           ids = `docker ps -q --no-trunc`.lines.map(&:chomp)
+          return [] if ids.empty?
           data = JSON.parse(`docker container inspect #{ids.join(' ')}`)
           data.map do |d|
             new(d)
