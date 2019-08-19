@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.4.0
+
+- Disable `client_max_body_size`
+
 ## 1.3.0
 
 - Fix docker container inspect error
