@@ -26,6 +26,12 @@ COPY mrbgem mrbgem
 RUN sh build.sh
 RUN make install
 
+FROM node:12.11.1-alpine AS workspace
+
+RUN apk add --no-cache zsh git less curl perl gnupg
+
+RUN mkdir /app
+
 FROM busybox
 
 RUN mkdir -p /usr/local/nginx/logs
