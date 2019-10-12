@@ -1,3 +1,3 @@
-client/node_modules/
-client/.cache/
-client/dist/
+front/node_modules/
+front/.cache/
+front/dist/

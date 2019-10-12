@@ -7,6 +7,7 @@ services:
     ports:
       - 80:3000
       - 8080:80
+      - 12345:12345
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   dummy:

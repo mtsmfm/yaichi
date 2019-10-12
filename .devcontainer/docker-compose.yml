@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  app:
+  app: &app
     build:
       context: .
       target: workspace
@@ -18,6 +18,10 @@ services:
       - ~/.gitconfig:/root/.gitconfig:ro
       - ~/.zshrc:/root/.zshrc:ro
       - ~/.netrc:/root/.netrc:ro
+  front:
+    <<: *front
+    working_dir: /app/front
+    command: yarn parcel index.html --port 3000 --hmr-hostname --hmr-port 12345
 volumes:
   app:
   home:
