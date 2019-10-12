@@ -17,10 +17,6 @@ module Docker
     def initialize(id)
       @id = id
     end
-
-    def connect(container)
-      `docker network connect #{id} #{container.id}`
-    end
   end
 
   class Container
@@ -28,18 +24,12 @@ module Docker
 
     class << self
       def all
-        @all ||= begin
-          ids = `docker ps -q --no-trunc`.lines.map(&:chomp)
-          return [] if ids.empty?
-          data = JSON.parse(`docker container inspect #{ids.join(' ')}`)
-          data.map do |d|
-            new(d)
-          end
+        ids = `docker ps -q --no-trunc`.lines.map(&:chomp)
+        return [] if ids.empty?
+        data = JSON.parse(`docker container inspect #{ids.join(' ')}`)
+        data.map do |d|
+          new(d)
         end
-      end
-
-      def my_id
-        @my_id ||= `hostname`.chomp
       end
 
       def me!(timeout_sec = 3)
@@ -47,7 +37,6 @@ module Docker
 
         timeout_sec.times do
           sleep 1
-          expire_cache!
           return me if me
         end
 
@@ -59,14 +48,14 @@ module Docker
         all.find {|c| c.host == host }
       end
 
-      def expire_cache!
-        @all = nil
-      end
-
       private
 
       def me
         all.find {|c| c.id.start_with?(my_id) }
+      end
+
+      def my_id
+        @my_id ||= `hostname`.chomp
       end
     end
 
@@ -106,13 +95,10 @@ module Docker
     end
 
     def listening?(container, port)
-      @listening_result ||= {}
-      return @listening_result[port] if @listening_result.key?(port)
-
       # TODO: Use FastRemoteCheck#open_raw?
       # Strangely it will raise error
       # Perhaps related to: https://github.com/matsumotory/mruby-fast-remote-check/issues/3
-      @listening_result[port] = FastRemoteCheck.new('127.0.0.1', 54321, ip_address(container), port, 3).connectable?
+      FastRemoteCheck.new('127.0.0.1', 54321, ip_address(container), port, 3).connectable?
     end
 
     private
