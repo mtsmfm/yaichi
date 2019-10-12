@@ -19,7 +19,7 @@ services:
       - ~/.zshrc:/root/.zshrc:ro
       - ~/.netrc:/root/.netrc:ro
   front:
-    <<: *front
+    <<: *app
     working_dir: /app/front
     command: yarn parcel index.html --port 3000 --hmr-hostname --hmr-port 12345
 volumes:
