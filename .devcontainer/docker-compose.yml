@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  app:
+    build:
+      context: .
+      target: workspace
+    environment:
+      SHELL: /bin/zsh
+    command: |
+      sh -c 'while sleep 3600; do :; done'
+    volumes:
+      - app:/app
+      - home:/root
+      - .:/original:cached
+      - ./hook:/usr/local/nginx/hook
+      - ./conf:/usr/local/nginx/conf
+      - ./data:/usr/local/nginx/data
+      - ~/.gitconfig:/root/.gitconfig:ro
+      - ~/.zshrc:/root/.zshrc:ro
+      - ~/.netrc:/root/.netrc:ro
+volumes:
+  app:
+  home:
