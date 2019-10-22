@@ -33,7 +33,7 @@ RUN apk add --no-cache zsh git less curl perl gnupg
 COPY --from=build-env /usr/local/nginx/sbin/nginx /usr/bin/nginx
 COPY --from=build-env /usr/bin/docker /usr/bin/docker
 
-RUN mkdir /app
+RUN mkdir -p /usr/local/nginx/logs /app
 
 FROM busybox
 
