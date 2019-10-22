@@ -18,20 +18,20 @@ const notifyReady = (fqdn: string, port: number) => {
   });
 };
 
-interface Container {
+export interface Container {
   id: string;
   name: string;
   fqdn: string;
-  available_ports: Array<{
+  ports: Array<{
     remote: number;
     local: number;
+    available: boolean;
   }>;
-  reacable: boolean;
 }
 
 export const useFetchContainers = (
   arg: Omit<Parameters<typeof useFetch>[0], "url">
-) => useFetch<Container[]>({ url: "/containers", ...arg });
+) => useFetch<Container[]>({ url: "http://localhost/containers", ...arg });
 
 export const useContainerAvailableNotification = (
   fqdn: string,
@@ -48,7 +48,7 @@ export const useContainerAvailableNotification = (
     data.some(
       c =>
         c.fqdn === fqdn &&
-        c.available_ports.some(({ remote }) => remote === port)
+        c.ports.some(({ remote, available }) => available && remote === port)
     );
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Waiting } from "./Waiting";
 import { Dashboard } from "./Dashboard";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, AppBar, Typography, Toolbar } from "@material-ui/core";
 
 export const App = () => {
   const Main = () => {

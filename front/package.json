@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.5.1",
+    "@material-ui/icons": "^4.5.1",
     "@types/react": "^16.9.9",
     "@types/react-dom": "^16.9.2",
     "parcel-bundler": "^1.12.4",

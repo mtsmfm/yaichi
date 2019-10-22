@@ -1,56 +1,52 @@
 import * as React from "react";
-import {
-  Typography,
-  CircularProgress,
-  Grid,
-  Container,
-  List,
-  ListItem
-} from "@material-ui/core";
+import { Typography, Container, List, LinearProgress } from "@material-ui/core";
 import { useFetchContainers } from "../hooks/userContainerProxiable";
+import { ContainerItem } from "./ContainerItem";
+import { ProxiableContainerItem } from "./ProxiableContainerItem";
 
 export const Dashboard: React.FC = () => {
-  const { successCount, data: containers } = useFetchContainers({
-    interval: 10000,
+  const { loading, data } = useFetchContainers({
+    interval: 5000,
     polling: true
   });
 
-  if (successCount === 0 || !containers) {
-    return (
-      <Grid container justify="center" style={{ marginTop: "2rem" }}>
-        <Grid item>
-          <CircularProgress size="100" />
-        </Grid>
-      </Grid>
-    );
-  }
+  const containers = data || [];
 
   return (
-    <Container>
-      <Typography variant="h3">Proxy-able Containers</Typography>
-      <List>
-        {containers
-          .filter(c => c.available_ports.length > 0)
-          .map(c =>
-            c.available_ports.map(({ local, remote }) => (
-              <ListItem
-                key={`${c.id}-${local}-${remote}`}
-                button
-                component="a"
-                target="_blank"
-                href={`http://${c.fqdn}:${remote}`}
-              >
-                {c.name} ({remote}:{local})
-              </ListItem>
-            ))
-          )}
-      </List>
-      <Typography variant="h3">All Containers</Typography>
-      <List>
-        {containers.map(c => (
-          <ListItem key={c.id}>{c.name}</ListItem>
-        ))}
-      </List>
-    </Container>
+    <>
+      {loading && (
+        <LinearProgress
+          style={{ position: "fixed", top: "0", width: "100%" }}
+        />
+      )}
+      <Container>
+        <Typography variant="h4" style={{ marginTop: "1rem" }}>
+          Proxy-able Containers
+        </Typography>
+        <List>
+          {containers
+            .filter(c => c.ports.some(({ available }) => available))
+            .map(c =>
+              c.ports
+                .filter(({ available }) => available)
+                .map(({ local, remote }) => (
+                  <ProxiableContainerItem
+                    key={`${c.id}-${local}-${remote}`}
+                    fqdn={c.fqdn}
+                    local={local}
+                    remote={remote}
+                    name={c.name}
+                  />
+                ))
+            )}
+        </List>
+        <Typography variant="h4">All Containers</Typography>
+        <List>
+          {containers.map(c => (
+            <ContainerItem key={c.id} container={c} />
+          ))}
+        </List>
+      </Container>
+    </>
   );
 };
