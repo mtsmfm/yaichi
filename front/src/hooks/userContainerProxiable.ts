@@ -1,36 +1,59 @@
 import icon from "../../data/favicon.png";
 import { useFetch } from "./useFetch";
+import { useEffect } from "react";
 
-const notifyMe = () => {
+const notifyReady = (fqdn: string, port: number) => {
   Notification.requestPermission().then(permission => {
     if (permission === "granted") {
-      const containerName = "foo-bar";
-      const notification = new Notification(`${containerName} is ready!`, {
+      const notification = new Notification(`${fqdn}:${port} is ready!`, {
         icon,
         requireInteraction: true
       });
       notification.onclick = () => {
         window.focus();
-        location.reload();
         notification.close();
       };
+      location.reload();
     }
   });
-
-  // At last, if the user has denied notifications, and you
-  // want to be respectful there is no need to bother them any more.
 };
 
 interface Container {
+  id: string;
+  name: string;
   fqdn: string;
+  available_ports: Array<{
+    remote: number;
+    local: number;
+  }>;
+  reacable: boolean;
 }
 
-export const useContainerProxiable = (fqdn: string) => {
-  const { data, loading } = useFetch<Container[]>({
-    url: "/containers/proxiable",
-    interval: 1000,
+export const useFetchContainers = (
+  arg: Omit<Parameters<typeof useFetch>[0], "url">
+) => useFetch<Container[]>({ url: "/containers", ...arg });
+
+export const useContainerAvailableNotification = (
+  fqdn: string,
+  port: number
+) => {
+  const { data, loading } = useFetchContainers({
+    interval: 3000,
     polling: true
   });
 
-  return !!(!loading && data && data.some(c => c.fqdn === fqdn));
+  const ready =
+    !loading &&
+    data &&
+    data.some(
+      c =>
+        c.fqdn === fqdn &&
+        c.available_ports.some(({ remote }) => remote === port)
+    );
+
+  useEffect(() => {
+    if (ready) {
+      notifyReady(fqdn, port);
+    }
+  }, [ready]);
 };

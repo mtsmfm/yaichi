@@ -9,7 +9,12 @@ export const App = () => {
       case "localhost":
         return <Dashboard />;
       default:
-        return <Waiting fqdn={location.hostname} />;
+        return (
+          <Waiting
+            fqdn={location.hostname}
+            port={Number(location.port.length === 0 ? 80 : location.port)}
+          />
+        );
     }
   };
 

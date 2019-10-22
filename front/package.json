@@ -13,5 +13,8 @@
   },
   "devDependencies": {
     "typescript": "^3.6.4"
-  }
+  },
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
 }
