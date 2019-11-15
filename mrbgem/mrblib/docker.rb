@@ -54,8 +54,9 @@ module Docker
         raise NotFound
       end
 
-      def find_by_fqdn(fqdn)
-        all.find {|c| c.fqdn == fqdn }
+      def find_by_hostname(hostname)
+        host = hostname.split('.').first
+        all.find {|c| c.host == host }
       end
 
       def expire_cache!
@@ -85,14 +86,6 @@ module Docker
 
     def host
       name.gsub('_', '-')
-    end
-
-    def uri(port)
-      "http://#{fqdn}:#{port}"
-    end
-
-    def fqdn
-      "#{host}.localhost"
     end
 
     def networks
