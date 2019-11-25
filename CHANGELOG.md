@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.0
+
+- Allow lvh.me
+
 ## 1.4.0
 
 - Disable `client_max_body_size`
