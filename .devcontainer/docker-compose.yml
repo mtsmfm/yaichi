@@ -1,17 +1,19 @@
 version: "3.7"
 services:
-  app: &app
+  app:
+    init: true
     build:
       context: .
       target: workspace
     environment:
       SHELL: /bin/zsh
       YAICHI_EXCLUDED_LISTENING_PORTS: 12345
-    command: |
-      sh -c 'while sleep 3600; do :; done'
+    command: sleep infinity
     volumes:
       - app:/app
       - home:/root
+      - ../.devcontainer:/app/.devcontainer:cached
+      - ../Dockerfile:/app/Dockerfile:cached
       - .:/original:cached
       - ~/.gitconfig:/root/.gitconfig:ro
       - ~/.zshrc:/root/.zshrc:ro
