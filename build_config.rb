@@ -9,13 +9,13 @@ MRuby::Build.new('host') do |conf|
     cc.flags << ENV['NGX_MRUBY_CFLAGS'] if ENV['NGX_MRUBY_CFLAGS']
   end
 
-  conf.gem 'mrbgem'
+  conf.gem './mrbgems/docker'
 
   #
   # Recommended for ngx_mruby
   #
   # conf.gem :github => 'iij/mruby-io'
-  # conf.gem :github => 'iij/mruby-env'
+  conf.gem :github => 'iij/mruby-env'
   # conf.gem :github => 'iij/mruby-dir'
   # conf.gem :github => 'iij/mruby-digest'
   # conf.gem :github => 'iij/mruby-process'

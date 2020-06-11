@@ -9,5 +9,4 @@ jobs:
       - setup_remote_docker:
           version: 17.07.0-ce
       - run: |
-          rm docker-compose.override.yml
           bin/test
