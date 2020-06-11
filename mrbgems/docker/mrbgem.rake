@@ -1,4 +1,4 @@
-MRuby::Gem::Specification.new('yaichi-helper') do |spec|
+MRuby::Gem::Specification.new('docker') do |spec|
   spec.license = 'MIT'
   spec.authors = 'Fumiaki MATSUSHIMA'
   spec.version = '0.0.1'
