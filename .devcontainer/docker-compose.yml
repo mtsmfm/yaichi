@@ -5,15 +5,16 @@ services:
     build:
       context: .
       target: workspace
+    command: |
+      sh -c 'while sleep 3600; do :; done'
     environment:
       SHELL: /bin/zsh
       YAICHI_EXCLUDED_LISTENING_PORTS: 12345
-    command: sleep infinity
     volumes:
       - app:/app
       - home:/root
-      - ../.devcontainer:/app/.devcontainer:cached
-      - ../Dockerfile:/app/Dockerfile:cached
+      - ./.devcontainer:/app/.devcontainer:cached
+      - ./Dockerfile:/app/Dockerfile:cached
       - .:/original:cached
       - ~/.gitconfig:/root/.gitconfig:ro
       - ~/.zshrc:/root/.zshrc:ro
