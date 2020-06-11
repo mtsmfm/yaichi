@@ -20,9 +20,7 @@ RUN wget -O /tmp/docker.tgz "https://download.docker.com/linux/static/${DOCKER_C
 RUN tar --extract --file /tmp/docker.tgz --strip-components 1 --directory /usr/bin
 
 COPY build_config.rb .
-COPY mrbgem/mrbgem.rake mrbgem/mrbgem.rake
-RUN sh build.sh
-COPY mrbgem mrbgem
+COPY mrbgems mrbgems
 RUN sh build.sh
 RUN make install
 
