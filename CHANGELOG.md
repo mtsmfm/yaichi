@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.0
+
+- Bump dependencies
+
 ## 1.5.0
 
 - Allow lvh.me
