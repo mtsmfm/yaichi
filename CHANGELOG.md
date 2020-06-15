@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.7.0
+
+- Clear cache when upstream is not available
+
 ## 1.6.0
 
 - Bump dependencies
