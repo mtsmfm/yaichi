@@ -22,7 +22,7 @@ Nginx.echo <<-HTML
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <title>Yaichi</title>
-    <link rel="stylesheet" href="https://cdn.rawgit.com/andyferra/2554919/raw/2e66cabdafe1c9a7f354aa2ebf5bc38265e638e5/github.css" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css" type="text/css" />
     <link rel="icon" type="image/png" href="/favicon.png">
   </head>
   <body>
