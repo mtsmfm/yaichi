@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.8.0
+
+- Fix style
+- Add dark theme
+
 ## 1.7.0
 
 - Clear cache when upstream is not available
