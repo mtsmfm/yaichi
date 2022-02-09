@@ -2,18 +2,24 @@
 
 set -ex
 
-docker-compose up -d
+docker compose up -d
 
 sleep 10 # XXX
 
-docker-compose exec app wget -O- localhost:80 | grep "<li><a href='http://yaichi-dummy-1.localhost:8080' target='_blank'>yaichi_dummy_1 (8080:80)</a></li>"
-docker-compose exec app wget -O- localhost:80 | grep "<li><a href='http://yaichi-ruby-1.localhost:80' target='_blank'>yaichi_ruby_1 (80:3000)</a></li>"
+docker compose exec -T app wget -O- localhost:80
+docker compose exec -T app wget -O- localhost:80 | grep "<li><a href='http://yaichi-dummy-1.localhost:8080' target='_blank'>yaichi-dummy-1 (8080:80)</a></li>"
+docker compose exec -T app wget -O- localhost:80 | grep "<li><a href='http://yaichi-ruby-1.localhost:80' target='_blank'>yaichi-ruby-1 (80:3000)</a></li>"
 
-docker-compose exec app wget -O- localhost:80 --header 'Host: yaichi-dummy-1.localhost' | grep 'Welcome to nginx!'
-docker-compose exec app wget -O- localhost:3000 --header 'Host: yaichi-ruby-1.localhost' | grep 'Hello World'
+docker compose exec -T app wget -O- localhost:80 --header 'Host: yaichi-dummy-1.localhost'
+docker compose exec -T app wget -O- localhost:80 --header 'Host: yaichi-dummy-1.localhost' | grep 'Welcome to nginx!'
+docker compose exec -T app wget -O- localhost:3000 --header 'Host: yaichi-ruby-1.localhost'
+docker compose exec -T app wget -O- localhost:3000 --header 'Host: yaichi-ruby-1.localhost' | grep 'Hello World'
 
-docker-compose exec app wget -O- lvh.me:80 | grep "<li><a href='http://yaichi-dummy-1.lvh.me:8080' target='_blank'>yaichi_dummy_1 (8080:80)</a></li>"
-docker-compose exec app wget -O- lvh.me:80 | grep "<li><a href='http://yaichi-ruby-1.lvh.me:80' target='_blank'>yaichi_ruby_1 (80:3000)</a></li>"
+docker compose exec -T app wget -O- lvh.me:80
+docker compose exec -T app wget -O- lvh.me:80 | grep "<li><a href='http://yaichi-dummy-1.lvh.me:8080' target='_blank'>yaichi-dummy-1 (8080:80)</a></li>"
+docker compose exec -T app wget -O- lvh.me:80 | grep "<li><a href='http://yaichi-ruby-1.lvh.me:80' target='_blank'>yaichi-ruby-1 (80:3000)</a></li>"
 
-docker-compose exec app wget -O- lvh.me:80 --header 'Host: yaichi-dummy-1.lvh.me' | grep 'Welcome to nginx!'
-docker-compose exec app wget -O- lvh.me:3000 --header 'Host: yaichi-ruby-1.lvh.me' | grep 'Hello World'
+docker compose exec -T app wget -O- lvh.me:80 --header 'Host: yaichi-dummy-1.localhost'
+docker compose exec -T app wget -O- lvh.me:80 --header 'Host: yaichi-dummy-1.lvh.me' | grep 'Welcome to nginx!'
+docker compose exec -T app wget -O- lvh.me:3000 --header 'Host: yaichi-ruby-1.localhost'
+docker compose exec -T app wget -O- lvh.me:3000 --header 'Host: yaichi-ruby-1.lvh.me' | grep 'Hello World'

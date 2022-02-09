@@ -15,7 +15,13 @@ services:
     command: |
       sh -c "
       ruby <<'EOF'
-        require 'webrick'
+        require 'bundler/inline'
+
+        gemfile do
+          source 'https://rubygems.org'
+
+          gem 'webrick'
+        end
 
         server = WEBrick::HTTPServer.new(:BindAddress => '0.0.0.0', :Port => 3000)
         server.mount_proc('/') do |req, res|
