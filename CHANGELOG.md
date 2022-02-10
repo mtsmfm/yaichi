@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.8.1
+
+- Fix build
+
 ## 1.8.0
 
 - Fix style
