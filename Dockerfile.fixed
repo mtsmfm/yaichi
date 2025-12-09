@@ -1,0 +1,9 @@
+FROM mtsmfm/yaichi:latest
+
+# Download and replace Docker client with newer version that supports API 1.44+
+RUN wget -O /tmp/docker.tgz "https://download.docker.com/linux/static/stable/x86_64/docker-25.0.3.tgz" && \
+    tar --extract --file /tmp/docker.tgz --strip-components 1 --directory /usr/bin && \
+    rm /tmp/docker.tgz && \
+    docker --version
+
+CMD ["/usr/bin/nginx"]
