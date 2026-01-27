@@ -24,6 +24,7 @@ Nginx.echo <<-HTML
     <title>Yaichi</title>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <style>
@@ -54,12 +55,7 @@ Nginx.echo <<-HTML
     </style>
   </head>
   <body style="padding:20px">
-    <a href="https://github.com/mtsmfm/yaichi">
-      <img style="position: absolute; top: 0; right: 0; border: 0;"
-        src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
-        alt="Fork me on GitHub"
-      data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
-    </a>
+  <a class="github-fork-ribbon" href="https://github.com/mtsmfm/yaichi" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
     <h2>Proxy-able Containers</h2>
     <ul>
     #{

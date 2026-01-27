@@ -1,9 +1,9 @@
 FROM alpine:3.6 AS build-env
 
-ENV NGINX_MRUBY_VERSION v2.2.1
+ENV NGINX_MRUBY_VERSION V2.7.0
 ENV NGINX_CONFIG_OPT_ENV '--with-ld-opt="-static" --prefix=/usr/local/nginx --with-http_stub_status_module --with-stream --without-stream_access_module'
 ENV DOCKER_CHANNEL stable
-ENV DOCKER_VERSION 19.03.11
+ENV DOCKER_VERSION 29.1.5
 
 RUN apk add --no-cache wget ruby-rake git gcc make tar bison openssl-dev pcre-dev libc-dev
 RUN mkdir -p /usr/local/src
