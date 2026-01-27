@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.9.0
+
+- Bump nginx mruby and docker version
+
 ## 1.8.1
 
 - Fix build
